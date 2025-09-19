@@ -87,7 +87,7 @@
 
     <!-- Botones inferiores -->
     <div class="d-flex justify-content-center gap-3 mt-4 mb-4">
-      <button class="btn btn-success" (click)="sortear()">Reparto</button>
+      <button class="btn btn-success" (click)="sortear()" [disabled]="sorteoEnProgreso || registros.length === 0">Reparto</button>
       <button class="btn btn-success" (click)="limpiarTabla()">Limpiar</button>
     </div>
 

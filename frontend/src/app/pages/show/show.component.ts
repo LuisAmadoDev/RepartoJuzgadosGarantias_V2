@@ -16,6 +16,8 @@ interface Registro {
   styleUrl: './show.component.css'
 })
 export class ShowComponent implements OnInit {
+  
+  sorteoInterval: any; // referencia global al intervalo
 
   // 🎲 Iconos
   fasTrash = faTrash;
@@ -65,6 +67,7 @@ export class ShowComponent implements OnInit {
     })
   }
 
+  //TABLA DE SORTEO
   // 📝 Agregar y eliminar juzgados de la tabla
   agregar(juzgado: string): void {
   this.registros.push({
@@ -86,33 +89,45 @@ reenumerar(): void {
     numero: i + 1
    }));
  }
+  
+  //BOTONES DE LA TABLA DE SORTEO
+  // 🧹 Limpiar tabla
+  limpiarTabla(): void {
+  this.registros = []; // vaciar la tabla
+  this.contador = 1; // reiniciar contador
+  this.court = ''; //limpiar el campo del formulario
+  this.nombreSorteo = ''; // limpiar texto del sorteo
+  this.sorteoEnProgreso = false;// detener efecto si estaba en progreso
 
- // 🧹 Limpiar tabla
- limpiarTabla(): void {
-  this.registros = [];
+  // Limpiar el intervalo si estaba activo
+  if (this.sorteoInterval) {
+    clearInterval(this.sorteoInterval);
+    this.sorteoInterval = null;
+  }
 }
-
-
   
   // 🎲 Sorteo de un juzgado
-  sortear(): void {
+ sortear(): void {
   if (this.registros.length === 0) {
     alert('No hay juzgados en la tabla para sortear.');
     return;
   }
-
+  
+  // INICIAR EL EFECTO DE SORTEO
   this.sorteoEnProgreso = true;
   this.nombreSorteo = '';
 
-  // Intervalo para ir mostrando nombres aleatorios
-  const interval = setInterval(() => {
+  // Guardamos el intervalo en la propiedad
+  this.sorteoInterval = setInterval(() => {
     const randomIndex = Math.floor(Math.random() * this.registros.length);
     this.nombreSorteo = this.registros[randomIndex].juzgado;
-  }, 200); // cambia cada 200 ms
+  }, 200);
 
   // Después de 5 segundos detenemos el "sorteo"
   setTimeout(() => {
-    clearInterval(interval);
+    clearInterval(this.sorteoInterval);
+    this.sorteoInterval = null; // limpiamos la referencia
+
     const randomIndex = Math.floor(Math.random() * this.registros.length);
     this.court = this.registros[randomIndex].juzgado;
     this.nombreSorteo = this.court;  // mostrar el definitivo
@@ -120,13 +135,7 @@ reenumerar(): void {
   }, 5000);
 }
 
-
-
-
-
-
-
-
+  //BOTONES DEL FORMULARIO
   // 🧾 Enviar formulario
   enviarFormulario(): void {
     const data = {
