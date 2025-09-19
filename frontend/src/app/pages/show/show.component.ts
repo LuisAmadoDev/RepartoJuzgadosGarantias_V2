@@ -4,6 +4,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { CaseAssignment } from '../../models/case-assignment.model';
 import { CrudService } from '../../services/crud.service';
 
+// 🎲 Interfaz para los registros de la tabla
 interface Registro {
   numero: number;
   juzgado: string;
@@ -15,14 +16,37 @@ interface Registro {
   styleUrl: './show.component.css'
 })
 export class ShowComponent implements OnInit {
+
+  // 🎲 Iconos
   fasTrash = faTrash;
   faEdit = faEdit
 
+  sorteoEnProgreso: boolean = false;   // para mostrar el efecto
+  nombreSorteo: string = '';           // texto animado que se verá en pantalla
+
+  
+  // 🎲 Tabla de juzgados
   registros: Registro[] = [];
   contador: number = 1;
 
+  // 🎲 Datos obtenidos del backend
   caseAssignments: CaseAssignment[] = [];
 
+  // 🎲 Juzgados disponibles para agregar a la tabla
+  juzgadosDisponibles: string[] = [
+  'Juzgado 1° Garantias',
+  'Juzgado 2° Garantias',
+  'Juzgado 3° Garantias',
+  'Juzgado 4° Garantias',
+  'Juzgado 5° Garantias',
+  'Juzgado 6° Garantias'
+];
+  
+  // 🎲 Verificar si un juzgado ya está en la tabla
+  estaDeshabilitado(juzgado: string): boolean {
+  return this.registros.some(r => r.juzgado === juzgado);
+}
+  
   // 🎯 Datos del formulario
   court: string = '';
   caseNumber: string = '';
@@ -33,7 +57,7 @@ export class ShowComponent implements OnInit {
 
   constructor ( private crudService:CrudService) {}
 
-
+  // 🎲 Obtener datos del backend al iniciar el componente
   ngOnInit(): void {
     this.crudService.getCaseAssignments().subscribe((res: CaseAssignment[]) => {
       console.log(res);
@@ -41,33 +65,67 @@ export class ShowComponent implements OnInit {
     })
   }
 
-
+  // 📝 Agregar y eliminar juzgados de la tabla
   agregar(juzgado: string): void {
-    this.registros.push({
-      numero: this.contador++,
-      juzgado: juzgado
+  this.registros.push({
+    numero: this.registros.length + 1, // se asigna en base al tamaño actual
+    juzgado: juzgado
     });
-  }
-
+  } 
+  
+  // 🗑️ Eliminar un juzgado de la tabla y reenumerar
   eliminar(indice: number): void {
-    this.registros.splice(indice, 1);
-  }
+  this.registros.splice(indice, 1);
+  this.reenumerar();
+ }
 
+ // 🔢 Reenumerar los números de la tabla
+reenumerar(): void {
+  this.registros = this.registros.map((reg, i) => ({
+    ...reg,
+    numero: i + 1
+   }));
+ }
+
+ // 🧹 Limpiar tabla
+ limpiarTabla(): void {
+  this.registros = [];
+}
+
+
+  
   // 🎲 Sorteo de un juzgado
   sortear(): void {
-    if (this.registros.length > 0) {
-      const randomIndex = Math.floor(Math.random() * this.registros.length);
-      this.court = this.registros[randomIndex].juzgado;
-    } else {
-      alert('No hay juzgados en la tabla para sortear.');
-    }
+  if (this.registros.length === 0) {
+    alert('No hay juzgados en la tabla para sortear.');
+    return;
   }
 
-  // 🧹 Limpiar tabla
-  limpiarTabla(): void {
-    this.registros = [];
-    this.contador = 1;
-  }
+  this.sorteoEnProgreso = true;
+  this.nombreSorteo = '';
+
+  // Intervalo para ir mostrando nombres aleatorios
+  const interval = setInterval(() => {
+    const randomIndex = Math.floor(Math.random() * this.registros.length);
+    this.nombreSorteo = this.registros[randomIndex].juzgado;
+  }, 200); // cambia cada 200 ms
+
+  // Después de 5 segundos detenemos el "sorteo"
+  setTimeout(() => {
+    clearInterval(interval);
+    const randomIndex = Math.floor(Math.random() * this.registros.length);
+    this.court = this.registros[randomIndex].juzgado;
+    this.nombreSorteo = this.court;  // mostrar el definitivo
+    this.sorteoEnProgreso = false;
+  }, 5000);
+}
+
+
+
+
+
+
+
 
   // 🧾 Enviar formulario
   enviarFormulario(): void {
@@ -90,5 +148,6 @@ export class ShowComponent implements OnInit {
     this.crimeCategory = '';
     this.remarksField = '';
   }
+
 
 }
