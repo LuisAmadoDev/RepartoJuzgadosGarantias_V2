@@ -87,9 +87,11 @@
 
     <!-- Botones inferiores -->
     <div class="d-flex justify-content-center gap-3 mt-4 mb-4">
-      <button class="btn btn-success" (click)="sortear()" [disabled]="sorteoEnProgreso || registros.length === 0">Reparto</button>
+      <button class="btn btn-success" (click)="sortearJuzgado()" [disabled]="sorteoEnProgreso || registros.length === 0">Reparto</button>
       <button class="btn btn-success" (click)="limpiarTabla()">Limpiar</button>
     </div>
+
+    <!--<app-generic-form [courtValue]="juzgadoAsignado"></app-generic-form>-->
 
     <!-- Formulario -->
   <div class="card mt-5">
@@ -148,6 +150,8 @@
       <table class="table table-bordered table-striped align-middle">
         <thead class="table-dark">
           <tr>
+            <th scope="col" class="text-center" style="display: none;">Id</th>
+            <th scope="col" class="text-center">Fecha Registro</th>
             <th scope="col" class="text-center">Juzgado</th>
             <th scope="col" class="text-center">Radicado</th>
             <th scope="col" class="text-center"># Detenidos</th>
@@ -158,16 +162,19 @@
         </thead>
         <tbody>
           <tr *ngFor="let caseAssignment of caseAssignments; let i = index">
+            <td class="text-center">{{ caseAssignment.assignedAt | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-center" style="display: none;">{{ caseAssignment._id }}</td>
             <td class="text-center">{{ caseAssignment.court }}</td>
             <td class="text-center">{{ caseAssignment.caseNumber }}</td>
             <td class="text-center">{{ caseAssignment.numberPeopleCustody }}</td>
             <td class="text-center">{{ caseAssignment.crimeCategory }}</td>
             <td class="text-center">{{ caseAssignment.remarksField }}</td>
             <td class="text-center">
-              <button class="btn btn-warning btn-sm me-2">
+              <button [routerLink]="['/update', caseAssignment._id]" 
+                class="btn btn-warning btn-sm me-2">
                 <fa-icon [icon]="faEdit"></fa-icon>
               </button>
-              <button class="btn btn-danger btn-sm">
+              <button (click)="eliminarRegistro(caseAssignment._id, i)" class="btn btn-danger btn-sm">
                 <fa-icon [icon]="fasTrash"></fa-icon>
               </button>
             </td>

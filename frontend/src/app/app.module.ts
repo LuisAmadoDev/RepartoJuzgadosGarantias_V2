@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,7 @@ import { EditComponent } from './pages/edit/edit.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HttpClientModule } from '@angular/common/http';
+import { GenericFormComponent } from './components/generic-form/generic-form.component';
 
 
 @NgModule({
@@ -17,14 +18,16 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     ShowComponent,
     CreateComponent,
-    EditComponent
+    EditComponent,
+    GenericFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
-    FormsModule 
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

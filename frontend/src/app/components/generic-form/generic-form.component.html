@@ -1,0 +1,44 @@
+<!-- Formulario -->
+  <div class="card mt-5">
+    <div class="card-header bg-dark text-white text-center" >
+       Registro de Audiencias
+    </div>
+    <div class="card-body">
+     <form [formGroup]="formCaseAssignment" (ngSubmit)="enviarFormulario()">
+  <div class="mb-3">
+    <label class="form-label">Juzgado</label>
+    <input formControlName="court" type="text" 
+           class="form-control"
+           [ngClass]="{'bg-warning fw-bold': courtValue}" 
+           readonly>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Radicado</label>
+    <input formControlName="caseNumber" type="text" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Número de detenidos</label>
+    <input formControlName="numberPeopleCustody" type="number" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Tipo de delito</label>
+    <input formControlName="crimeCategory" type="text" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Observaciones</label>
+    <textarea formControlName="remarksField" rows="3" class="form-control"></textarea>
+  </div>
+
+  <!-- Botones -->
+  <div class="d-flex justify-content-center gap-3">
+    <button [disabled]="!formCaseAssignment.valid" type="submit" class="btn btn-primary">Enviar</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="limpiarFormulario()">Limpiar</button>
+  </div>
+</form>
+    </div>
+  </div>
+

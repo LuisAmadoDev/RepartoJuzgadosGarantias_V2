@@ -19,7 +19,7 @@ const caseAssignmentSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Crime category is required']
     },
-    RemarksField: {
+    remarksField: {
         type: String
     },
     assignedAt: {

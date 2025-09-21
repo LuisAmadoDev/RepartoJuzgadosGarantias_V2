@@ -59,14 +59,6 @@ export class ShowComponent implements OnInit {
 
   constructor ( private crudService:CrudService) {}
 
-  // 🎲 Obtener datos del backend al iniciar el componente
-  ngOnInit(): void {
-    this.crudService.getCaseAssignments().subscribe((res: CaseAssignment[]) => {
-      console.log(res);
-      this.caseAssignments = res;
-    })
-  }
-
   //TABLA DE SORTEO
   // 📝 Agregar y eliminar juzgados de la tabla
   agregar(juzgado: string): void {
@@ -107,12 +99,12 @@ reenumerar(): void {
 }
   
   // 🎲 Sorteo de un juzgado
- sortear(): void {
+  sortearJuzgado(): void {
   if (this.registros.length === 0) {
     alert('No hay juzgados en la tabla para sortear.');
     return;
   }
-  
+
   // INICIAR EL EFECTO DE SORTEO
   this.sorteoEnProgreso = true;
   this.nombreSorteo = '';
@@ -135,19 +127,63 @@ reenumerar(): void {
   }, 5000);
 }
 
+/*
+sortearJuzgado(): void {
+  if (this.registros.length === 0) {
+    alert('No hay juzgados en la tabla para sortear.');
+    return;
+  }
+
+  this.sorteoEnProgreso = true;
+  this.nombreSorteo = '';
+
+  // Intervalo que va cambiando nombres
+  this.sorteoInterval = setInterval(() => {
+    const randomIndex = Math.floor(Math.random() * this.registros.length);
+    this.nombreSorteo = this.registros[randomIndex].juzgado;
+  }, 200);
+
+  // Detener después de 5 segundos y asignar el definitivo
+  setTimeout(() => {
+    clearInterval(this.sorteoInterval);
+    this.sorteoInterval = null;
+
+    const randomIndex = Math.floor(Math.random() * this.registros.length);
+    this.court = this.registros[randomIndex].juzgado; // ← aquí llenas el campo del formulario
+    this.nombreSorteo = this.court;
+    this.sorteoEnProgreso = false;
+  }, 5000);
+}
+*/
+
+
   //BOTONES DEL FORMULARIO
   // 🧾 Enviar formulario
-  enviarFormulario(): void {
-    const data = {
-      court: this.court,
-      caseNumber: this.caseNumber,
-      numberPeopleCustody: this.numberPeopleCustody,
-      crimeCategory: this.crimeCategory,
-      remarksField: this.remarksField
-    };
-    console.log('Formulario enviado:', data);
-    alert('Formulario enviado correctamente (ver consola).');
-  }
+enviarFormulario(): void {
+  // Construir el objeto a partir de las variables ligadas con [(ngModel)]
+  const data = {
+    court: this.court,
+    caseNumber: this.caseNumber,
+    numberPeopleCustody: this.numberPeopleCustody,
+    crimeCategory: this.crimeCategory,
+    remarksField: this.remarksField
+  };
+
+  // Llamar al servicio y enviar los datos al backend
+  this.crudService.createCaseAssignment(data).subscribe({
+    next: (res) => {
+      console.log('Guardado en backend:', res);
+      alert('Formulario enviado y guardado en backend.');
+      this.limpiarFormulario(); // limpiar después de guardar
+    },
+    error: (err) => {
+      console.error('Error al guardar:', err);
+      alert('Hubo un error al guardar en el backend.');
+    }
+  });
+}
+
+
 
   // 🧹 Limpiar formulario
   limpiarFormulario(): void {
@@ -157,6 +193,22 @@ reenumerar(): void {
     this.crimeCategory = '';
     this.remarksField = '';
   }
+  
 
+
+   // 🎲 Obtener datos del backend al iniciar el componente
+  ngOnInit(): void {
+    this.crudService.getCaseAssignments().subscribe((res: CaseAssignment[]) => {
+      console.log(res);
+      this.caseAssignments = res;
+    })
+  }
+
+  // 🗑️ Eliminar registro del backend
+  eliminarRegistro(id:any, index:any){
+    this.crudService.deleteCaseAssignment(id).subscribe( (res) => {
+      this.caseAssignments.splice(index,1);
+    })
+  }
 
 }

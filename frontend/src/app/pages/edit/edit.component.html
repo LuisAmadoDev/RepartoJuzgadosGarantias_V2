@@ -1,1 +1,55 @@
-<p>edit works!</p>
+
+<section class="container flex-grow-1">
+<!-- Formulario -->
+<div class="card mt-5">
+    <div class="card-header bg-dark text-white text-center">
+        Edición de Registro de Audiencias
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="updateForm()" #form="ngForm">
+
+            <!-- Campo court -->
+            <div class="mb-3">
+                <label for="court" class="form-label">Juzgado</label>
+                <input type="text" id="court" class="form-control" [ngClass]="{'bg-warning fw-bold': model?.court}"
+                    [(ngModel)]="model.court" name="court">
+            </div>
+
+            <!-- Campo caseNumber -->
+            <div class="mb-3">
+                <label for="caseNumber" class="form-label">Radicado</label>
+                <input type="text" id="caseNumber" class="form-control" [(ngModel)]="model.caseNumber"
+                    name="caseNumber">
+            </div>
+
+            <!-- Campo numberPeopleCustody -->
+            <div class="mb-3">
+                <label for="numberPeopleCustody" class="form-label">Número de detenidos</label>
+                <input type="text" id="numberPeopleCustody" class="form-control" [(ngModel)]="model.numberPeopleCustody"
+                    name="numberPeopleCustody">
+            </div>
+
+            <!-- Campo crimeCategory -->
+            <div class="mb-3">
+                <label for="crimeCategory" class="form-label">Tipo de delito</label>
+                <input type="text" id="crimeCategory" class="form-control" [(ngModel)]="model.crimeCategory"
+                    name="crimeCategory">
+            </div>
+
+            <!-- Campo remarksField -->
+            <div class="mb-3">
+                <label for="remarksField" class="form-label">Observaciones</label>
+                <textarea id="remarksField" class="form-control" [(ngModel)]="model.remarksField" name="remarksField"
+                    rows="3"></textarea>
+            </div>
+
+            <!-- Botones formulario -->
+            <div class="d-flex justify-content-center gap-3">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+                <a routerLink="/" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+</section>
