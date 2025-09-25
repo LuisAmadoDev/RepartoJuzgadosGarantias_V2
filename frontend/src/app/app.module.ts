@@ -11,6 +11,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HttpClientModule } from '@angular/common/http';
 import { GenericFormComponent } from './components/generic-form/generic-form.component';
+import { GenericTableComponent } from './components/generic-table/generic-table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CaseFilterPipe } from './pipes/case-filter.pipe';
 
 
 @NgModule({
@@ -19,7 +22,9 @@ import { GenericFormComponent } from './components/generic-form/generic-form.com
     ShowComponent,
     CreateComponent,
     EditComponent,
-    GenericFormComponent
+    GenericFormComponent,
+    GenericTableComponent,
+    CaseFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,8 @@ import { GenericFormComponent } from './components/generic-form/generic-form.com
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    NgxPaginationModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

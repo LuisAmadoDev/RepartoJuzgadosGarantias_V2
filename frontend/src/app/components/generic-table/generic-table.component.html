@@ -1,0 +1,80 @@
+<!-- Tabla con registros del formulario -->
+<div class="card mt-5 mb-5 mx-auto" style="width: 1400px;">
+  <div class="card-header bg-secondary text-white text-center">
+    Registros Guardados
+  </div>
+
+  <div class="card-body table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col" class="text-center">Fecha Registro</th>
+          <th scope="col" class="text-center">Juzgado</th>
+          <th scope="col" class="text-center">Radicado</th>
+          <th scope="col" class="text-center"># Detenidos</th>
+          <th scope="col" class="text-center">Tipo Delito</th>
+          <th scope="col" class="text-center" style="width: 250px;">Observaciones</th>
+          <th scope="col" class="text-center" style="width: 150px;">Acciones</th>
+        </tr>
+
+        <!-- 🔍 Fila de filtros -->
+        <tr>
+          <th><input type="text" [(ngModel)]="filters.assignedAt" placeholder="Buscar Fecha" class="form-control" /></th>
+          <th><input type="text" [(ngModel)]="filters.court" placeholder="Buscar juzgado" class="form-control"></th>
+          <th><input type="text" [(ngModel)]="filters.caseNumber" placeholder="Buscar radicado" class="form-control"></th>
+          <th><input type="text" [(ngModel)]="filters.numberPeopleCustody" placeholder="# Detenidos" class="form-control"></th>
+          <th><input type="text" [(ngModel)]="filters.crimeCategory" placeholder="Tipo delito" class="form-control"></th>
+          <th><input type="text" [(ngModel)]="filters.remarksField" placeholder="Observaciones" class="form-control"></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!-- Usamos el pipe para aplicar los filtros y la paginación -->
+        <tr *ngFor="let caseAssignment of caseAssignments 
+                      | caseFilter:filters 
+                      | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index">
+          <td class="text-center">{{ caseAssignment.assignedAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td class="text-center">{{ caseAssignment.court }}</td>
+          <td class="text-center">{{ caseAssignment.caseNumber }}</td>
+          <td class="text-center">{{ caseAssignment.numberPeopleCustody }}</td>
+          <td class="text-center">{{ caseAssignment.crimeCategory }}</td>
+          <td style="width: 250px;">
+            <div class="obs-box">
+              {{ caseAssignment.remarksField }}
+            </div>
+          </td>
+          <td class="text-center" style="width: 150px; white-space: nowrap;">
+            <button [routerLink]="['/update', caseAssignment._id]" 
+              class="btn btn-warning btn-sm me-2">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button (click)="eliminarRegistro(caseAssignment._id, i)" class="btn btn-danger btn-sm">
+              <fa-icon [icon]="fasTrash"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 📌 Paginador -->
+    <div class="d-flex justify-content-center mt-3">
+      <pagination-controls 
+        (pageChange)="currentPage = $event"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        class="my-pagination">
+      </pagination-controls>
+    </div>
+  </div>
+</div>
+
+<!-- Botones formulario -->
+<div class="d-flex justify-content-center gap-3 mt-4 mb-4">
+    <a routerLink="/" class="btn btn-primary">Regresar</a>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+  <p class="mb-0">&copy; 2025 Reparto Audiencias Complejas. Todos los derechos reservados.</p>
+</footer>

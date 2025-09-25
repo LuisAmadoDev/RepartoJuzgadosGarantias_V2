@@ -3,6 +3,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { CaseAssignment } from '../../models/case-assignment.model';
 import { CrudService } from '../../services/crud.service';
+import { AlertifyService } from '../../services/alertify.service';
 
 // 🎲 Interfaz para los registros de la tabla
 interface Registro {
@@ -57,7 +58,9 @@ export class ShowComponent implements OnInit {
   remarksField: string = '';
 
 
-  constructor ( private crudService:CrudService) {}
+  constructor ( 
+    private crudService:CrudService,
+    private alertifyService: AlertifyService) {}
 
   //TABLA DE SORTEO
   // 📝 Agregar y eliminar juzgados de la tabla
@@ -127,35 +130,6 @@ reenumerar(): void {
   }, 5000);
 }
 
-/*
-sortearJuzgado(): void {
-  if (this.registros.length === 0) {
-    alert('No hay juzgados en la tabla para sortear.');
-    return;
-  }
-
-  this.sorteoEnProgreso = true;
-  this.nombreSorteo = '';
-
-  // Intervalo que va cambiando nombres
-  this.sorteoInterval = setInterval(() => {
-    const randomIndex = Math.floor(Math.random() * this.registros.length);
-    this.nombreSorteo = this.registros[randomIndex].juzgado;
-  }, 200);
-
-  // Detener después de 5 segundos y asignar el definitivo
-  setTimeout(() => {
-    clearInterval(this.sorteoInterval);
-    this.sorteoInterval = null;
-
-    const randomIndex = Math.floor(Math.random() * this.registros.length);
-    this.court = this.registros[randomIndex].juzgado; // ← aquí llenas el campo del formulario
-    this.nombreSorteo = this.court;
-    this.sorteoEnProgreso = false;
-  }, 5000);
-}
-*/
-
 
   //BOTONES DEL FORMULARIO
   // 🧾 Enviar formulario
@@ -173,7 +147,8 @@ enviarFormulario(): void {
   this.crudService.createCaseAssignment(data).subscribe({
     next: (res) => {
       console.log('Guardado en backend:', res);
-      alert('Formulario enviado y guardado en backend.');
+      this.alertifyService.success('¡Registro guardado!');
+      this.ngOnInit();
       this.limpiarFormulario(); // limpiar después de guardar
     },
     error: (err) => {
@@ -184,31 +159,47 @@ enviarFormulario(): void {
 }
 
 
-
   // 🧹 Limpiar formulario
   limpiarFormulario(): void {
     this.court = '';
     this.caseNumber = '';
-    this.numberPeopleCustody = null;
+    this.numberPeopleCustody = '';
     this.crimeCategory = '';
     this.remarksField = '';
   }
   
 
 
-   // 🎲 Obtener datos del backend al iniciar el componente
   ngOnInit(): void {
-    this.crudService.getCaseAssignments().subscribe((res: CaseAssignment[]) => {
-      console.log(res);
-      this.caseAssignments = res;
-    })
-  }
+  this.crudService.getCaseAssignments().subscribe((res: CaseAssignment[]) => {
+    console.log(res);
+
+    // 🔹 Ordenar de más reciente a más antiguo
+    this.caseAssignments = res.sort((a, b) => {
+      const fechaA = new Date(a.assignedAt!).getTime();
+      const fechaB = new Date(b.assignedAt!).getTime();
+      return fechaB - fechaA; // primero la más reciente
+    });
+
+    // 🔹 Mostrar solo los últimos 10
+    this.caseAssignments = this.caseAssignments.slice(0, 10);
+  });
+}
+
+
 
   // 🗑️ Eliminar registro del backend
   eliminarRegistro(id:any, index:any){
-    this.crudService.deleteCaseAssignment(id).subscribe( (res) => {
-      this.caseAssignments.splice(index,1);
-    })
+    this.alertifyService.confirm({
+      message: '¿Estás seguro de eliminar este registro?',
+      callbanck_delete: () => {
+        this.crudService.deleteCaseAssignment(id).subscribe( (res) =>{
+          this.caseAssignments.splice(index, 1); // eliminar de la lista en pantalla
+        })
+      }
+    });
   }
+
+
 
 }

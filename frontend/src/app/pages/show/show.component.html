@@ -133,7 +133,7 @@
 
         <!-- Botones formulario -->
         <div class="d-flex justify-content-center gap-3">
-          <button type="submit" class="btn btn-primary">Enviar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
           <button type="button" class="btn btn-outline-secondary" (click)="limpiarFormulario()">Limpiar</button>
         </div>
 
@@ -142,7 +142,7 @@
   </div>
 
     <!-- Tabla con registros del formulario -->
-  <div class="card mt-5 m-5">
+  <div class="card mt-5 m-5" style="width: 1200px;">
     <div class="card-header bg-secondary text-white text-center">
       Registros Guardados
     </div>
@@ -156,8 +156,8 @@
             <th scope="col" class="text-center">Radicado</th>
             <th scope="col" class="text-center"># Detenidos</th>
             <th scope="col" class="text-center">Tipo Delito</th>
-            <th scope="col" class="text-center">Observaciones</th>
-            <th scope="col" class="text-center">Acciones</th>
+            <th scope="col" class="text-center" style="width: 250px;">Observaciones</th>
+            <th scope="col" class="text-center" style="width: 150px;">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -168,8 +168,12 @@
             <td class="text-center">{{ caseAssignment.caseNumber }}</td>
             <td class="text-center">{{ caseAssignment.numberPeopleCustody }}</td>
             <td class="text-center">{{ caseAssignment.crimeCategory }}</td>
-            <td class="text-center">{{ caseAssignment.remarksField }}</td>
-            <td class="text-center">
+            <td style="width: 250px;">
+                 <div class="obs-box">
+                  {{ caseAssignment.remarksField }}
+                 </div>
+            </td>
+            <td class="text-center" style="width: 150px; white-space: nowrap;">
               <button [routerLink]="['/update', caseAssignment._id]" 
                 class="btn btn-warning btn-sm me-2">
                 <fa-icon [icon]="faEdit"></fa-icon>
@@ -184,12 +188,22 @@
     </div>
   </div>
 
+  <!-- Boton Tabla Generica -->
+    <div class="d-flex justify-content-center gap-3 mt-4 mb-4">
+      <button [routerLink]="['generic-table']" class="btn btn-primary btn-sm me-2">
+        Todos los Registros
+      </button>
+    </div>
+
 
   </main>
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3 mt-auto">
-    <p class="mb-0">&copy; 2025 Reparto Audiencias Complejas. Todos los derechos reservados.</p>
+    <p class="mb-1">&copy; 2025 <strong>Reparto Audiencias Complejas</strong></p>
+    <p class="mb-0 small text-warning">
+      🚀 Desarrollado por <strong>Ing. Luis Fernando Amado Sánchez</strong>
+    </p>
   </footer>
 
   <!-- Bootstrap 5.3.7 JS -->

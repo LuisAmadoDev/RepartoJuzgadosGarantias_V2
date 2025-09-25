@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../../services/crud.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CaseAssignment } from '../../models/case-assignment.model';
+import { AlertifyService } from '../../services/alertify.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class EditComponent implements OnInit {
   constructor(
     private crudService: CrudService, 
     private router: Router,
-    private activatedRoute:ActivatedRoute) { }
+    private activatedRoute:ActivatedRoute,
+    private alertifyService:AlertifyService) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') 
@@ -33,10 +35,17 @@ export class EditComponent implements OnInit {
   }
 
   updateForm(): void {
-  this.crudService.updateCaseAssignment(this.id, this.model).subscribe(res => {
-    console.log('Registro actualizado:', res);
-    this.router.navigate(['/']); // redirigir si quieres
-  });
+  this.crudService.updateCaseAssignment(this.id, this.model).subscribe({
+  next: (res) => {
+    this.alertifyService.success('¡Registro actualizado!');
+    this.router.navigateByUrl('/show');
+  },
+  error: (error) => {
+    console.error('Error updating record:', error);
+    this.alertifyService.error('Error al actualizar el registro. Por favor, inténtelo de nuevo.');
+  }
+});
+
 }
 
 }
