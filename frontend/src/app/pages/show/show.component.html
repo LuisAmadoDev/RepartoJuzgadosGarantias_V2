@@ -10,48 +10,78 @@
   <main class="container flex-grow-1">
 
     <!-- Botones principales -->
-<div class="d-flex flex-wrap justify-content-center gap-2 mt-5 mb-5">
-  <button 
-    class="btn btn-primary" 
-    (click)="agregar('Juzgado 1° Garantias')" 
-    [disabled]="estaDeshabilitado('Juzgado 1° Garantias')">
-    Juzgado 1
-  </button>
+<div class="d-flex flex-wrap justify-content-center gap-4 mt-5 mb-5 text-center">
+   <div>
+    <button 
+      class="btn btn-primary" 
+      (click)="agregar('Juzgado 1° Garantias')" 
+      [disabled]="estaDeshabilitado('Juzgado 1° Garantias')">
+      Juzgado 1
+    </button>
+    <div class="mt-1 text-muted">
+      {{ countsByCourt['Juzgado 1° Garantias'] || 0 }} registros
+    </div>
+  </div>
 
-  <button 
-    class="btn btn-primary" 
-    (click)="agregar('Juzgado 2° Garantias')" 
-    [disabled]="estaDeshabilitado('Juzgado 2° Garantias')">
-    Juzgado 2
-  </button>
+  <div>
+    <button 
+      class="btn btn-primary" 
+      (click)="agregar('Juzgado 2° Garantias')" 
+      [disabled]="estaDeshabilitado('Juzgado 2° Garantias')">
+      Juzgado 2
+    </button>
+    <div class="mt-1 text-muted">
+      {{ countsByCourt['Juzgado 2° Garantias'] || 0 }} registros
+    </div>
+  </div>
 
-  <button 
-    class="btn btn-primary" 
-    (click)="agregar('Juzgado 3° Garantias')" 
-    [disabled]="estaDeshabilitado('Juzgado 3° Garantias')">
-    Juzgado 3
-  </button>
+  <div>
+    <button 
+      class="btn btn-primary" 
+      (click)="agregar('Juzgado 3° Garantias')" 
+      [disabled]="estaDeshabilitado('Juzgado 3° Garantias')">
+      Juzgado 3
+    </button>
+    <div class="mt-1 text-muted">
+      {{ countsByCourt['Juzgado 3° Garantias'] || 0 }} registros
+    </div>
+  </div>
 
-  <button 
-    class="btn btn-primary" 
-    (click)="agregar('Juzgado 4° Garantias')" 
-    [disabled]="estaDeshabilitado('Juzgado 4° Garantias')">
-    Juzgado 4
-  </button>
+   <div>
+    <button 
+      class="btn btn-primary" 
+      (click)="agregar('Juzgado 4° Garantias')" 
+      [disabled]="estaDeshabilitado('Juzgado 4° Garantias')">
+      Juzgado 4
+    </button>
+    <div class="mt-1 text-muted">
+      {{ countsByCourt['Juzgado 4° Garantias'] || 0 }} registros
+    </div>
+  </div>
 
-  <button 
-    class="btn btn-primary" 
-    (click)="agregar('Juzgado 5° Garantias')" 
-    [disabled]="estaDeshabilitado('Juzgado 5° Garantias')">
-    Juzgado 5
-  </button>
+  <div>
+    <button 
+      class="btn btn-primary" 
+      (click)="agregar('Juzgado 5° Garantias')" 
+      [disabled]="estaDeshabilitado('Juzgado 5° Garantias')">
+      Juzgado 5
+    </button>
+    <div class="mt-1 text-muted">
+      {{ countsByCourt['Juzgado 5° Garantias'] || 0 }} registros
+    </div>
+  </div>
 
-  <button 
-    class="btn btn-primary" 
-    (click)="agregar('Juzgado 6° Garantias')" 
-    [disabled]="estaDeshabilitado('Juzgado 6° Garantias')">
-    Juzgado 6
-  </button>
+  <div>
+    <button 
+      class="btn btn-primary" 
+      (click)="agregar('Juzgado 6° Garantias')" 
+      [disabled]="estaDeshabilitado('Juzgado 6° Garantias')">
+      Juzgado 6
+    </button>
+    <div class="mt-1 text-muted">
+      {{ countsByCourt['Juzgado 6° Garantias'] || 0 }} registros
+    </div>
+  </div>
 </div>
 
 

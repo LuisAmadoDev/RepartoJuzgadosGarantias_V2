@@ -57,6 +57,7 @@ export class ShowComponent implements OnInit {
   crimeCategory: string = '';
   remarksField: string = '';
 
+  countsByCourt: { [key: string]: number } = {};
 
   constructor ( 
     private crudService:CrudService,
@@ -183,6 +184,13 @@ enviarFormulario(): void {
 
     // 🔹 Mostrar solo los últimos 10
     this.caseAssignments = this.caseAssignments.slice(0, 10);
+
+    // 🔹 Calcular cuántos registros hay por cada juzgado
+    this.countsByCourt = res.reduce((acc, item) => {
+      const court = item.court;
+      acc[court] = (acc[court] || 0) + 1;
+      return acc;
+    }, {} as { [key: string]: number });
   });
 }
 

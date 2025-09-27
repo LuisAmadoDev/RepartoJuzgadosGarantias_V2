@@ -14,11 +14,11 @@ export class CrudService {
 
   constructor(private httpClient:HttpClient) { }
 
-  getCaseAssignments() {
+  getCaseAssignments(): Observable<any> {
     return this.httpClient.get(this.RESP_API, { headers: this.httpHeaders })
   }
 
-  getCaseAssignment(id:any) {
+  getCaseAssignment(id:any): Observable<any>{
     return this.httpClient.get(`${this.RESP_API}/${id}`, { headers: this.httpHeaders }).pipe(
       map((res: any) => {
         return res || {}
@@ -26,19 +26,19 @@ export class CrudService {
     )
 }
 
-  createCaseAssignment(data: CaseAssignment){
+  createCaseAssignment(data: CaseAssignment): Observable<any>{
     return this.httpClient.post(this.RESP_API, data, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)
     );
   }
 
-  updateCaseAssignment(id: any, data: any){
+  updateCaseAssignment(id: any, data: any): Observable<any>{
     return this.httpClient.put(`${this.RESP_API}/${id}`, data, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)
     );
   }
 
-  deleteCaseAssignment(id: any){
+  deleteCaseAssignment(id: any): Observable<any>{
     return this.httpClient.delete(`${this.RESP_API}/${id}`, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)
     );
