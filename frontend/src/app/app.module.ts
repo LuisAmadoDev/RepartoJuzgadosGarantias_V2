@@ -14,6 +14,8 @@ import { GenericFormComponent } from './components/generic-form/generic-form.com
 import { GenericTableComponent } from './components/generic-table/generic-table.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CaseFilterPipe } from './pipes/case-filter.pipe';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { CaseFilterPipe } from './pipes/case-filter.pipe';
     EditComponent,
     GenericFormComponent,
     GenericTableComponent,
-    CaseFilterPipe
+    CaseFilterPipe,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

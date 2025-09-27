@@ -1,0 +1,30 @@
+/*
+
+src/app/
+ ├── components/
+ │    ├── header/
+ │    │    └── header.component.ts/html/css
+ │    ├── footer/
+ │    │    └── footer.component.ts/html/css
+ │    ├── court-buttons/
+ │    │    └── court-buttons.component.ts/html/css
+ │    ├── sorteo-table/
+ │    │    └── sorteo-table.component.ts/html/css
+ │    ├── case-form/
+ │    │    └── case-form.component.ts/html/css
+ │    ├── case-table/
+ │    │    └── case-table.component.ts/html/css
+ │    └── generic-table/
+ │         └── generic-table.component.ts/html/css
+ │
+ ├── pages/
+ │    ├── show/
+ │    │    └── show.component.ts/html/css
+ │    ├── edit/
+ │    └── create/
+ │
+ ├── models/
+ ├── services/
+ └── app.module.ts
+
+ */
