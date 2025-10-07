@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+    titulo: string = 'Reparto Audiencias Complejas';
+    subtitulo: string = 'Juzgados Penales con Función de Control de Garantías';
 }
