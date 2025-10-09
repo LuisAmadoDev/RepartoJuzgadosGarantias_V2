@@ -13,10 +13,22 @@ export class CrudService {
    httpHeaders = new HttpHeaders().set('Content-type', 'application/json')
 
   constructor(private httpClient:HttpClient) { }
-
+  
   getCaseAssignments(): Observable<any> {
     return this.httpClient.get(this.RESP_API, { headers: this.httpHeaders })
   }
+/*
+  getCaseAssignments(): Observable<any> {
+  const token = localStorage.getItem('token'); // o sessionStorage, depende de cómo lo guardes al hacer login
+
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.httpClient.get(this.RESP_API, { headers });
+}
+*/
 
   getCaseAssignment(id:any): Observable<any>{
     return this.httpClient.get(`${this.RESP_API}/${id}`, { headers: this.httpHeaders }).pipe(

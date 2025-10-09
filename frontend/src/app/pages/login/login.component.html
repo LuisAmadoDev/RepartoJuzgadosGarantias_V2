@@ -1,0 +1,49 @@
+<div class="vh-100 d-flex justify-content-center align-items-center bg-gradient">
+  <div class="card shadow-lg border-0 rounded-4" style="width: 500px;">
+    <div class="card-body text-center p-4">
+
+      <h4 class="fw-semibold mb-4 text-uppercase text-dark">Bienvenido</h4>
+      <h6 class="fw-semibold mb-4 text-uppercase text-dark">Reparto Audiencias Complejas</h6>
+
+      <form (ngSubmit)="onLogin()" autocomplete="off">
+        <div class="row g-0 border rounded overflow-hidden">
+          <div class="col border-end">
+            <input
+              type="email"
+              class="form-control border-0 text-center"
+              placeholder="Email"
+              [(ngModel)]="email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="col">
+            <input
+              type="password"
+              class="form-control border-0 text-center"
+              placeholder="Password"
+              [(ngModel)]="password"
+              name="password"
+              required
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-dark w-100 mt-3 py-2 fw-semibold"
+        >
+          SIGN IN
+        </button>
+      </form>
+
+      <a href="#" class="d-block mt-3 small text-white-50 text-decoration-none">
+        Forgot password?
+      </a>
+
+      <p *ngIf="errorMsg" class="text-danger mt-3 mb-0">{{ errorMsg }}</p>
+    </div>
+  </div>
+</div>
+
+

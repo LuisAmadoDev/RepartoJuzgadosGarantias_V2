@@ -21,15 +21,29 @@ export const getCaseAssignment = async (req, res) => {
         res.status(500).json({ message: 'Error retrieving case assignment', error });
     }
 }
-
+/*
 export const createCaseAssignment = async (req, res) => {
     try {
-        const newCaseAssignment = await CaseAssignmentModel.create(req.body);
+        const newCaseAssignment = await CaseAssignmentModel.create(req.body, req.user.id);
         res.status(201).json(newCaseAssignment);
     } catch (error) {
         res.status(500).json({ message: 'Error creating case assignment', error });
     }
-}
+}*/
+
+export const createCaseAssignment = async (req, res) => {
+  try {
+    const newCaseAssignment = await CaseAssignmentModel.create({
+      ...req.body,          // datos que envía el frontend
+      createdBy: req.user.id // usuario autenticado (desde el middleware)
+    });
+
+    res.status(201).json(newCaseAssignment);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating case assignment', error });
+  }
+};
+
 
 export const updateCaseAssignment = async (req, res) => {
     const { id } = req.params;

@@ -17,6 +17,10 @@ import { CaseFilterPipe } from './pipes/case-filter.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { LoginComponent } from './pages/login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +32,8 @@ import { FooterComponent } from './components/footer/footer.component';
     GenericTableComponent,
     CaseFilterPipe,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ReactiveFormsModule,
     NgxPaginationModule 
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

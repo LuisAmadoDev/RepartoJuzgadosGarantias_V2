@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +10,11 @@ import { Component } from '@angular/core';
 export class HeaderComponent {
     titulo: string = 'Reparto Audiencias Complejas';
     subtitulo: string = 'Juzgados Penales con Función de Control de Garantías';
+
+    constructor(private authService: AuthService, private router: Router) {}
+
+    logout() {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+    }
 }
