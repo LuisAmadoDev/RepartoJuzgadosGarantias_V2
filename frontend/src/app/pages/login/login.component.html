@@ -1,4 +1,4 @@
-<div class="vh-100 d-flex justify-content-center align-items-center bg-gradient">
+<!--<div class="vh-100 d-flex justify-content-center align-items-center bg-gradient">
   <div class="card shadow-lg border-0 rounded-4" style="width: 500px;">
     <div class="card-body text-center p-4">
 
@@ -44,6 +44,56 @@
       <p *ngIf="errorMsg" class="text-danger mt-3 mb-0">{{ errorMsg }}</p>
     </div>
   </div>
+</div>-->
+
+
+<div class="login-wrapper d-flex justify-content-center align-items-center vh-100">
+  <div class="login-card shadow-lg rounded-4 p-4 position-relative text-center">
+
+    <!-- Logo -->
+    <div class="logo-container position-absolute top-0 start-50 translate-middle">
+      <img src="assets/LogoRamaJudicial.jpg" alt="Logo Rama Judicial" class="logo-img rounded-circle shadow" />
+    </div>
+
+    <h4 class="fw-bold mt-5 mb-3 text-white">Bienvenido</h4>
+    <h6 class="fw-semibold mb-4 text-white text-uppercase">Reparto Audiencias Complejas</h6>
+
+    <form (ngSubmit)="onLogin()" autocomplete="off">
+      <!-- Email -->
+      <div class="input-group mb-3">
+        <span class="input-group-text bg-azul text-white">
+          <fa-icon [icon]="faUser"></fa-icon>
+        </span>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Correo electrónico"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="input-group mb-4">
+        <span class="input-group-text bg-azul text-white">
+          <fa-icon [icon]="faLock"></fa-icon>
+        </span>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Contraseña"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-danger w-100 fw-semibold py-2">
+        Ingresar
+      </button>
+    </form>
+
+    <p *ngIf="errorMsg" class="text-danger mt-3 mb-0">{{ errorMsg }}</p>
+  </div>
 </div>
-
-
