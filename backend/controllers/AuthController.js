@@ -33,6 +33,7 @@ export const registerUser = async (req, res) => {
 };
 
 // Login
+/*
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -53,4 +54,30 @@ export const loginUser = async (req, res) => {
     console.error("❌ Error en login:", error);
     res.status(500).json({ message: "Error en el login", error });
   }
+};*/
+
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // 🔽 Normalizar email
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Buscar usuario
+    const user = await UserModel.findOne({ email: normalizedEmail });
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+
+    // Verificar contraseña
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: "Credenciales inválidas" });
+
+    // Crear token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+    res.json({ message: "Login exitoso", token });
+  } catch (error) {
+    console.error("❌ Error en login:", error);
+    res.status(500).json({ message: "Error en el login", error });
+  }
 };
+

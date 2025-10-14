@@ -1,0 +1,19 @@
+.logo-rama {
+  height: 80px;      /* ajusta el tamaño a tu gusto */
+  width: auto;
+  border-radius: 30%;
+  object-fit: contain;
+  filter: brightness(100%);
+}
+/*.logo-rama:hover {
+  filter: brightness(90%);
+  transition: filter 0.3s ease;
+}*/
+
+.img-zoom {
+  transition: transform 0.3s ease-in-out; /* suaviza el efecto */
+}
+
+.img-zoom:hover {
+  transform: scale(1.1); /* hace zoom al 110% */
+}

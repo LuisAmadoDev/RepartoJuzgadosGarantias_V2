@@ -18,6 +18,7 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  /*
   onLogin() {
     this.authService.login(this.email, this.password).subscribe({
       next: () => {
@@ -27,5 +28,21 @@ export class LoginComponent {
         this.errorMsg = err.error?.message || 'Error al iniciar sesión';
       }
     });
-  }
+  }*/
+
+  onLogin() {
+  const email = this.email.toLowerCase().trim();// convierte a minúsculas y elimina espacios
+  const password = this.password.trim();// Elimina espacios innecesarios
+
+  this.authService.login(email, password).subscribe({
+    next: () => {
+      this.router.navigate(['/show']);
+    },
+    error: err => {
+      this.errorMsg = err.error?.message || 'Error al iniciar sesión';
+    }
+  });
+}
+
+
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+    faRightFromBracket = faRightFromBracket; 
+    
     titulo: string = 'Reparto Audiencias Complejas';
     subtitulo: string = 'Juzgados Penales con Función de Control de Garantías';
 

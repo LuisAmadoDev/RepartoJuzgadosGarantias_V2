@@ -1,4 +1,16 @@
+ 
 <header class="bg-dark text-white py-4 mb-4 d-flex justify-content-between align-items-center px-4">
+
+  <!-- 🔹 Logo a la izquierda -->
+  <div class="d-flex align-items-center">
+  <a routerLink="/show">
+    <img 
+      src="assets/LogoRamaJudicial.jpg" 
+      alt="Logo Rama Judicial" 
+      class="me-3 logo-rama img-zoom"
+    />
+  </a>
+</div>
   
   <!-- 🔹 Títulos centrados -->
   <div class="text-center flex-grow-1">
@@ -10,9 +22,7 @@
   <button 
     class="btn btn-outline-light btn-sm order-2 ms-auto"
     (click)="logout()">
-    <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
+    <fa-icon [icon]="faRightFromBracket" class="me-1"></fa-icon> Cerrar sesión
   </button>
   
 </header>
-
-
