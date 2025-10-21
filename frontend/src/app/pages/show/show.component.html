@@ -10,7 +10,7 @@
 <div class="d-flex flex-wrap justify-content-center gap-4 mt-5 mb-5 text-center">
    <div>
     <button 
-      class="btn btn-primary shadow" 
+      class="btn btn-primary btn-lift" 
       (click)="agregar('Juzgado 1° Garantias')" 
       [disabled]="estaDeshabilitado('Juzgado 1° Garantias')">
       Juzgado 1
@@ -22,19 +22,19 @@
 
   <div>
     <button 
-      class="btn btn-primary shadow" 
+      class="btn btn-primary btn-lift" 
       (click)="agregar('Juzgado 2° Garantias')" 
       [disabled]="estaDeshabilitado('Juzgado 2° Garantias')">
       Juzgado 2
     </button>
-    <div class="mt-1 text-muted">
+    <div class="mt-1 text-muted" >
       {{ countsByCourt['Juzgado 2° Garantias'] || 0 }} registros
     </div>
   </div>
 
   <div>
     <button 
-      class="btn btn-primary shadow" 
+      class="btn btn-primary btn-lift" 
       (click)="agregar('Juzgado 3° Garantias')" 
       [disabled]="estaDeshabilitado('Juzgado 3° Garantias')">
       Juzgado 3
@@ -46,7 +46,7 @@
 
    <div>
     <button 
-      class="btn btn-primary shadow" 
+      class="btn btn-primary btn-lift" 
       (click)="agregar('Juzgado 4° Garantias')" 
       [disabled]="estaDeshabilitado('Juzgado 4° Garantias')">
       Juzgado 4
@@ -58,7 +58,7 @@
 
   <div>
     <button 
-      class="btn btn-primary shadow" 
+      class="btn btn-primary btn-lift" 
       (click)="agregar('Juzgado 5° Garantias')" 
       [disabled]="estaDeshabilitado('Juzgado 5° Garantias')">
       Juzgado 5
@@ -70,7 +70,7 @@
 
   <div>
     <button 
-      class="btn btn-primary shadow" 
+      class="btn btn-primary btn-lift" 
       (click)="agregar('Juzgado 6° Garantias')" 
       [disabled]="estaDeshabilitado('Juzgado 6° Garantias')">
       Juzgado 6
@@ -217,7 +217,7 @@
 
   <!-- Boton Tabla Generica -->
     <div class="d-flex justify-content-center gap-3 mt-4 mb-4">
-      <button [routerLink]="['/generic-table']" class="btn btn-primary btn-sm me-2">
+      <button [routerLink]="['/generic-table']" class="btn btn-primary btn-sm me-2 btn-lift">
         Todos los Registros
       </button>
     </div>

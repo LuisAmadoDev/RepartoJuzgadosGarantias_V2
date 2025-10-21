@@ -1,19 +1,17 @@
+.bg-blue {
+  background-color: #06345f;/* Azul oscuro personalizado */
+}
+
 .logo-rama {
-  height: 80px;      /* ajusta el tamaño a tu gusto */
+  height: 80px;  /* ajusta el tamaño a tu gusto */
   width: auto;
   border-radius: 30%;
-  object-fit: contain;
   filter: brightness(100%);
-}
-/*.logo-rama:hover {
-  filter: brightness(90%);
-  transition: filter 0.3s ease;
-}*/
+  transition: box-shadow 0.3s ease;/* para una transición suave */
 
-.img-zoom {
-  transition: transform 0.3s ease-in-out; /* suaviza el efecto */
 }
 
-.img-zoom:hover {
-  transform: scale(1.1); /* hace zoom al 110% */
+.logo-rama:hover {
+  box-shadow: 0 0 15px 5px rgba(255, 255, 0, 0.5);
+  /* sombra amarilla suave */
 }
