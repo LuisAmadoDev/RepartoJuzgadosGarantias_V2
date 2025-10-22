@@ -20,6 +20,7 @@ export class AuthService {
       tap((response: any) => {
         if (response.token) {
           localStorage.setItem(this.tokenKey, response.token);
+          localStorage.setItem('role', response.role); // 🔹 guarda el rol
           this.loggedIn.next(true);
         }
       })

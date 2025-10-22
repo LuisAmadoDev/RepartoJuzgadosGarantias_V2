@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Password is required"]
   },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user" // 🔹 todos los nuevos usuarios son 'user' por defecto
+  },
   createdAt: {
     type: Date,
     default: Date.now
