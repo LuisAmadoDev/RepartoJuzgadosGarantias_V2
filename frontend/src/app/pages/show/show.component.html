@@ -84,7 +84,7 @@
 
   <!-- Tabla -->
   <div class="table-responsive">
-    <table class="table table-bordered table-striped align-middle">
+    <table class="table table-bordered table-striped align-middle shadow-sm">
       <thead class="table-dark">
         <tr>
           <th scope="col" class="text-center">Número</th>
@@ -120,7 +120,8 @@
 
     <!--<app-generic-form [courtValue]="juzgadoAsignado"></app-generic-form>-->
 
-    <!-- Formulario -->
+    <!--
+     Formulario 
   <div class="card mt-5">
     <div class="card-header bg-dark text-white text-center" >
        Registro de Audiencias
@@ -128,37 +129,37 @@
     <div class="card-body">
       <form (ngSubmit)="enviarFormulario()" #form="ngForm">
 
-        <!-- Campo court -->
+       
         <div class="mb-3">
           <label for="court" class="form-label">Juzgado</label>
           <input type="text" id="court" class="form-control" [ngClass]="{'bg-warning fw-bold': court}" [(ngModel)]="court" name="court" readonly>
         </div>
 
-        <!-- Campo caseNumber -->
+        
         <div class="mb-3">
           <label for="caseNumber" class="form-label">Radicado</label>
           <input type="text" id="caseNumber" class="form-control" [(ngModel)]="caseNumber" name="caseNumber">
         </div>
 
-        <!-- Campo numberPeopleCustody -->
+        
         <div class="mb-3">
           <label for="numberPeopleCustody" class="form-label">Número de detenidos</label>
           <input type="text" id="numberPeopleCustody" class="form-control" [(ngModel)]="numberPeopleCustody" name="numberPeopleCustody">
         </div>
 
-        <!-- Campo crimeCategory -->
+        
         <div class="mb-3">
           <label for="crimeCategory" class="form-label">Tipo de delito</label>
           <input type="text" id="crimeCategory" class="form-control" [(ngModel)]="crimeCategory" name="crimeCategory">
         </div>
 
-        <!-- Campo remarksField -->
+       
         <div class="mb-3">
           <label for="remarksField" class="form-label">Observaciones</label>
           <textarea id="remarksField" class="form-control" [(ngModel)]="remarksField" name="remarksField" rows="3"></textarea>
         </div>
 
-        <!-- Botones formulario -->
+        
         <div class="d-flex justify-content-center gap-3">
           <button type="submit" class="btn btn-primary">Guardar</button>
           <button type="button" class="btn btn-outline-secondary" (click)="limpiarFormulario()">Limpiar</button>
@@ -167,9 +168,91 @@
       </form>
     </div>
   </div>
+   -->
+
+  
+  <!-- Formulario -->
+<div class="card mt-5 shadow-sm border-0">
+  <div class="card-header bg-dark text-white text-center">
+    Registro de Audiencias
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="enviarFormulario()" #form="ngForm">
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="court" class="form-label">Juzgado</label>
+          <input 
+            type="text" 
+            id="court" 
+            class="form-control" 
+            [ngClass]="{'bg-warning fw-bold': court}" 
+            [(ngModel)]="court" 
+            name="court" 
+            readonly>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="caseNumber" class="form-label">Radicado</label>
+          <input 
+            type="text" 
+            id="caseNumber" 
+            class="form-control" 
+            [(ngModel)]="caseNumber" 
+            name="caseNumber">
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="numberPeopleCustody" class="form-label">Número de detenidos</label>
+          <input 
+            type="text" 
+            id="numberPeopleCustody" 
+            class="form-control" 
+            [(ngModel)]="numberPeopleCustody" 
+            name="numberPeopleCustody">
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="crimeCategory" class="form-label">Tipo de delito</label>
+          <input 
+            type="text" 
+            id="crimeCategory" 
+            class="form-control" 
+            [(ngModel)]="crimeCategory" 
+            name="crimeCategory">
+        </div>
+      </div>
+
+      
+      <div class="mb-3">
+        <label for="remarksField" class="form-label">Observaciones</label>
+        <textarea 
+          id="remarksField" 
+          class="form-control" 
+          [(ngModel)]="remarksField" 
+          name="remarksField" 
+          rows="3">
+        </textarea>
+      </div>
+
+      <!-- Botones formulario -->
+      <div class="d-flex justify-content-center gap-3">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="limpiarFormulario()">Limpiar</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+
 
     <!-- Tabla con registros del formulario -->
-  <div class="card mt-5 m-5" style="width: 1200px;">
+  <div class="card mt-5 m-5 shadow-sm border-0" style="width: 1200px;">
     <div class="card-header bg-secondary text-white text-center">
       Registros Guardados
     </div>
@@ -202,10 +285,11 @@
             </td>
             <td class="text-center" style="width: 150px; white-space: nowrap;">
               <button [routerLink]="['/update', caseAssignment._id]" 
-                class="btn btn-warning btn-sm me-2">
+                class="btn btn-outline-warning btn-sm me-2">
                 <fa-icon [icon]="faEdit"></fa-icon>
               </button>
-              <button (click)="eliminarRegistro(caseAssignment._id, i)" class="btn btn-danger btn-sm">
+              <button (click)="eliminarRegistro(caseAssignment._id, i)" 
+                class="btn btn-outline-danger btn-sm">
                 <fa-icon [icon]="fasTrash"></fa-icon>
               </button>
             </td>

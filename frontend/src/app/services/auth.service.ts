@@ -34,8 +34,9 @@ export class AuthService {
 
   // 🚪 Logout
   logout(): void {
-  localStorage.removeItem('token');  // elimina el token
-  this.loggedIn.next(false);         // actualiza el estado
+  localStorage.removeItem('token'); // elimina el token
+  localStorage.removeItem('role');  // limpia el rol también
+  this.loggedIn.next(false);        // actualiza el estado
 }
 
 
@@ -49,6 +50,11 @@ export class AuthService {
     const hasToken = !!localStorage.getItem(this.tokenKey);
     this.loggedIn.next(hasToken);
     return of(hasToken);
+  }
+
+  // ✅ Obtener rol actual
+  getUserRole(): string | null {
+    return localStorage.getItem('role');
   }
 
   private hasToken(): boolean {

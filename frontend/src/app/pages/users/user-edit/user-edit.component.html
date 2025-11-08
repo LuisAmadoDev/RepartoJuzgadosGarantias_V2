@@ -1,0 +1,9 @@
+<div class="container mt-4">
+  <h3 class="text-center mb-4">Editar Usuario</h3>
+
+  <app-user-form
+    *ngIf="userToEdit"
+    [userToEdit]="userToEdit"
+    (saveUser)="updateUser($event)">
+  </app-user-form>
+</div>

@@ -1,0 +1,133 @@
+<!--<div class="card shadow-sm border-0">
+  <div class="card-header bg-dark text-white text-center">
+    <h5 class="mb-0">
+      <fa-icon [icon]="faUser"></fa-icon> Lista de Usuarios
+    </h5>
+    
+    <button class="btn btn-sm btn-light" (click)="refreshList()">
+      <i class="fas fa-sync-alt me-1"></i> Actualizar
+    </button>
+   
+  </div>
+
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-striped mb-0 align-middle">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="users && users.length > 0; else noData">
+          <tr *ngFor="let user of users; let i = index" class="text-center">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <span class="badge bg-{{ user.role === 'admin' ? 'primary' : 'secondary' }}">
+                {{ user.role }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-outline-warning me-2" (click)="onEdit(user)">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="onDelete(user._id)">
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noData>
+        <tr>
+          <td colspan="5" class="text-center p-3 text-muted">
+            <i class="fas fa-exclamation-circle me-2"></i> No hay usuarios registrados.
+          </td>
+        </tr>
+      </ng-template>
+    </div>
+  </div>
+</div>
+ -->
+
+
+
+
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-dark text-white text-center">
+    <h5 class="mb-0">
+      <fa-icon [icon]="faUser"></fa-icon> Lista de Usuarios
+    </h5>
+  </div>
+
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-striped mb-0 align-middle">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="users && users.length > 0; else noData">
+          <tr *ngFor="let user of users; let i = index" class="text-center">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <span class="badge bg-{{ user.role === 'admin' ? 'primary' : 'secondary' }}">
+                {{ user.role }}
+              </span>
+            </td>
+            <td>
+              <span 
+                class="badge"
+                [ngClass]="user.active ? 'bg-success' : 'bg-danger'">
+                {{ user.active ? 'Habilitado' : 'Deshabilitado' }}
+              </span>
+            </td>
+
+            <td>
+              <!-- Editar -->
+              <button class="btn btn-sm btn-outline-warning me-2" (click)="onEdit(user)">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+
+              <!-- Eliminar -->
+              <button class="btn btn-sm btn-outline-danger me-2" (click)="onDelete(user._id)">
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+
+              <!-- Habilitar / Deshabilitar -->
+              <button 
+                class="btn btn-sm" 
+                [ngClass]="user.active ? 'btn-outline-secondary' : 'btn-outline-success'"
+                (click)="toggleUserStatus(user)">
+                <fa-icon [icon]="user.active ? faBan : faCheck"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noData>
+        <tr>
+          <td colspan="6" class="text-center p-3 text-muted">
+            <i class="fas fa-exclamation-circle me-2"></i> No hay usuarios registrados.
+          </td>
+        </tr>
+      </ng-template>
+    </div>
+  </div>
+</div>

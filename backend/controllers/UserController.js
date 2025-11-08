@@ -46,6 +46,7 @@ export const createUser = async (req, res) => {
       email: email.toLowerCase(),
       password: hashedPassword,
       role: role || "user",
+      active: true,
     });
 
     await user.save();
@@ -84,5 +85,31 @@ export const deleteUser = async (req, res) => {
     res.json({ message: "Usuario eliminado correctamente" });
   } catch (error) {
     res.status(500).json({ message: "Error eliminando usuario", error });
+  }
+};
+
+// Habilitar o deshabilitar usuario (solo admin)
+export const updateUserStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { active } = req.body;
+
+    const user = await UserModel.findByIdAndUpdate(
+      id,
+      { active },
+      { new: true }
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    res.json({
+      message: `Usuario ${active ? "habilitado" : "deshabilitado"} correctamente.`,
+      user,
+    });
+  } catch (error) {
+    console.error("Error al actualizar estado del usuario:", error);
+    res.status(500).json({ message: "Error al actualizar estado del usuario", error });
   }
 };

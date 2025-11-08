@@ -1,28 +1,29 @@
  
 <header class="bg-blue text-white py-4 mb-4 d-flex justify-content-between align-items-center px-4">
-
-  <!-- 🔹 Logo a la izquierda -->
   <div class="d-flex align-items-center">
-  <a routerLink="/show">
-    <img 
-      src="assets/LogoRamaJudicial.jpg" 
-      alt="Logo Rama Judicial" 
-      class="me-3 logo-rama img-zoom"
-    />
-  </a>
-</div>
-  
-  <!-- 🔹 Títulos centrados -->
+    <a routerLink="/show">
+      <img src="assets/LogoRamaJudicial.jpg" alt="Logo Rama Judicial" class="me-3 logo-rama img-zoom" />
+    </a>
+  </div>
+
   <div class="text-center flex-grow-1">
     <h1 class="h3 mb-1">{{ titulo }}</h1>
     <h2 class="h5 mb-0">{{ subtitulo }}</h2>
   </div>
 
-  <!-- 🔹 Botón a la derecha -->
+  <!--
   <button 
     class="btn btn-outline-light btn-sm order-2 ms-auto"
     (click)="logout()">
-    <fa-icon [icon]="faRightFromBracket" class="me-1"></fa-icon> Cerrar sesión
+    <fa-icon [icon]="faRightFromBracket" class="me-1"></fa-icon>
+    Cerrar sesión
+  </button>-->
+
+  <!-- 🔹 Solo se muestra si estamos en la ruta principal -->
+  <button *ngIf="showLogoutButton" class="btn btn-outline-light btn-sm order-2 ms-auto" (click)="logout()">
+    <fa-icon [icon]="faRightFromBracket" class="me-1"></fa-icon>
+    Cerrar sesión
   </button>
-  
+
 </header>
+

@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
     enum: ["admin", "user"],
     default: "user" // 🔹 todos los nuevos usuarios son 'user' por defecto
   },
+  active: { 
+    type: Boolean, 
+    default: true 
+  },
   createdAt: {
     type: Date,
     default: Date.now

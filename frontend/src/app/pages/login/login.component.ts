@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { AlertifyService } from '../../services/alertify.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'] 
 })
 export class LoginComponent {
   faUser = faUser;
@@ -16,21 +17,36 @@ export class LoginComponent {
   password = '';
   errorMsg = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alertify: AlertifyService
+  ) {}
 
   onLogin() {
-  const email = this.email.toLowerCase().trim();// convierte a minúsculas y elimina espacios
-  const password = this.password.trim();// Elimina espacios innecesarios
+    const email = this.email.toLowerCase().trim(); // convierte a minúsculas y elimina espacios
+    const password = this.password.trim(); // elimina espacios innecesarios
 
-  this.authService.login(email, password).subscribe({
-    next: () => {
-      this.router.navigate(['/show']);
-    },
-    error: err => {
-      this.errorMsg = err.error?.message || 'Error al iniciar sesión';
-    }
-  });
-}
+    // ✅ Aquí ya está bien separado del código anterior
+    this.authService.login(email, password).subscribe({
+      next: (res) => {
+        this.alertify.success('Inicio de sesión exitoso');
 
+        // ✅ Obtener rol del usuario
+        const role = localStorage.getItem('role');
 
+        // 🔀 Redirigir según el rol
+        if (role === 'admin') {
+          console.log('➡️ Redirigiendo a /users/show-user...');
+          this.router.navigate(['/users/show-user']); // página de administración de usuarios
+        } else {
+          console.log('➡️ Redirigiendo a /show...');
+          this.router.navigate(['/show']); // página principal
+        }
+      },
+      error: () => {
+        this.alertify.error('Credenciales incorrectas');
+      }
+    });
+  }
 }

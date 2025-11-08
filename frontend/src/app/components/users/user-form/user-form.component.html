@@ -1,0 +1,70 @@
+<div class="card shadow-sm border-0 mb-4">
+  <div class="card-header bg-primary text-white text-center">
+    Gestion de Usuario
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="row g-3">
+        <!-- Username -->
+        <div class="col-md-6">
+          <label for="username" class="form-label">Nombre de usuario</label>
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            formControlName="username"
+            placeholder="Ej: JuanPerez"
+            [class.is-invalid]="userForm.get('username')?.invalid && userForm.get('username')?.touched"
+          />
+          <div class="invalid-feedback">El nombre de usuario es obligatorio.</div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Ej: juan@correo.com"
+            [class.is-invalid]="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+          />
+          <div class="invalid-feedback">Debe ingresar un correo válido.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="col-md-6" *ngIf="!isEdit">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="********"
+            [class.is-invalid]="userForm.get('password')?.invalid && userForm.get('password')?.touched"
+          />
+          <div class="invalid-feedback">La contraseña es obligatoria.</div>
+        </div>
+
+        <!-- Rol -->
+        <div class="col-md-6">
+          <label for="role" class="form-label">Rol</label>
+          <select id="role" class="form-select" formControlName="role">
+            <option value="user">Usuario</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex justify-content-center">
+        <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">
+          <i class="fas fa-save me-2"></i>
+          {{ isEdit ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
