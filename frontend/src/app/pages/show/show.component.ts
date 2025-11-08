@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { CaseAssignment } from '../../models/case-assignment.model';
 import { CrudService } from '../../services/crud.service';
 import { AlertifyService } from '../../services/alertify.service';
+import { NgForm } from '@angular/forms';
+
+
 
 // 🎲 Interfaz para los registros de la tabla
 interface Registro {
   numero: number;
   juzgado: string;
 }
+
+
 
 @Component({
   selector: 'app-show',
@@ -18,6 +23,8 @@ interface Registro {
 })
 export class ShowComponent implements OnInit {
   
+  @ViewChild('form') form!: NgForm;
+
   sorteoInterval: any; // referencia global al intervalo
 
   // 🎲 Iconos
@@ -149,8 +156,10 @@ enviarFormulario(): void {
     next: (res) => {
       console.log('Guardado en backend:', res);
       this.alertifyService.success('¡Registro guardado!');
-      this.ngOnInit();
+      this.crudService.getCaseAssignments(); // Refresca la tabla
+      
       this.limpiarFormulario(); // limpiar después de guardar
+      this.form.resetForm();
     },
     error: (err) => {
       console.error('Error al guardar:', err);

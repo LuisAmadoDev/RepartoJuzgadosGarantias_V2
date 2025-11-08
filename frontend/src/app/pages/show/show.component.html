@@ -180,6 +180,28 @@
     <form (ngSubmit)="enviarFormulario()" #form="ngForm">
 
       <div class="row">
+        <!-- 🏛️ Juzgado -->
+        <div class="col-md-6 mb-3">
+          <label for="court" class="form-label">Juzgado <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            id="court"
+            class="form-control"
+            [ngClass]="{'bg-warning fw-bold': court ,'is-invalid': courtField.invalid && courtField.touched}"
+            [(ngModel)]="court"
+            name="court"
+            #courtField="ngModel"
+            required
+            readonly
+          >
+          <div *ngIf="courtField.invalid && courtField.touched" class="text-danger small mt-1">
+            Debe seleccionar un juzgado.
+          </div>
+        </div>
+
+        <!--
+
+        <div class="row">
         <div class="col-md-6 mb-3">
           <label for="court" class="form-label">Juzgado</label>
           <input 
@@ -191,6 +213,7 @@
             name="court" 
             readonly>
         </div>
+
 
         <div class="col-md-6 mb-3">
           <label for="caseNumber" class="form-label">Radicado</label>
@@ -224,7 +247,67 @@
             [(ngModel)]="crimeCategory" 
             name="crimeCategory">
         </div>
+      </div>-->
+
+
+
+      <!-- 📄 Radicado -->
+        <div class="col-md-6 mb-3">
+          <label for="caseNumber" class="form-label">Radicado <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            id="caseNumber"
+            class="form-control"
+            [ngClass]="{'is-invalid': caseNumberField.invalid && caseNumberField.touched}"
+            [(ngModel)]="caseNumber"
+            name="caseNumber"
+            #caseNumberField="ngModel"
+            required
+          >
+          <div *ngIf="caseNumberField.invalid && caseNumberField.touched" class="text-danger small mt-1">
+            Debe ingresar el número de radicado.
+          </div>
+        </div>
       </div>
+
+      <div class="row">
+        <!-- 👮 Número de detenidos -->
+        <div class="col-md-6 mb-3">
+          <label for="numberPeopleCustody" class="form-label">Número de detenidos <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            id="numberPeopleCustody"
+            class="form-control"
+            [ngClass]="{'is-invalid': numberPeopleField.invalid && numberPeopleField.touched}"
+            [(ngModel)]="numberPeopleCustody"
+            name="numberPeopleCustody"
+            #numberPeopleField="ngModel"
+            required
+          >
+          <div *ngIf="numberPeopleField.invalid && numberPeopleField.touched" class="text-danger small mt-1">
+            Debe indicar el número de detenidos.
+          </div>
+        </div>
+
+        <!-- ⚖️ Tipo de delito -->
+        <div class="col-md-6 mb-3">
+          <label for="crimeCategory" class="form-label">Tipo de delito <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            id="crimeCategory"
+            class="form-control"
+            [ngClass]="{'is-invalid': crimeCategoryField.invalid && crimeCategoryField.touched}"
+            [(ngModel)]="crimeCategory"
+            name="crimeCategory"
+            #crimeCategoryField="ngModel"
+            required
+          >
+          <div *ngIf="crimeCategoryField.invalid && crimeCategoryField.touched" class="text-danger small mt-1">
+            Debe ingresar el tipo de delito.
+          </div>
+        </div>
+      </div>
+      
 
       
       <div class="mb-3">
@@ -240,7 +323,9 @@
 
       <!-- Botones formulario -->
       <div class="d-flex justify-content-center gap-3">
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary px-4" [disabled]="!form.valid">
+          Guardar
+        </button>
         <button type="button" class="btn btn-outline-secondary" (click)="limpiarFormulario()">Limpiar</button>
       </div>
 
@@ -253,7 +338,7 @@
 
     <!-- Tabla con registros del formulario -->
   <div class="card mt-5 m-5 shadow-sm border-0" style="width: 1200px;">
-    <div class="card-header bg-secondary text-white text-center">
+    <div class="card-header bg-primary text-white text-center">
       Registros Guardados
     </div>
     <div class="card-body table-responsive">
