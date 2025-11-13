@@ -156,7 +156,8 @@ enviarFormulario(): void {
     next: (res) => {
       console.log('Guardado en backend:', res);
       this.alertifyService.success('¡Registro guardado!');
-      this.crudService.getCaseAssignments(); // Refresca la tabla
+      //this.crudService.getCaseAssignments(); // Refresca la tabla
+       this.loadCaseAssignments(); // 🔁 Refresca la tabla
       
       this.limpiarFormulario(); // limpiar después de guardar
       this.form.resetForm();
@@ -181,20 +182,19 @@ enviarFormulario(): void {
 
 
   ngOnInit(): void {
-  this.crudService.getCaseAssignments().subscribe((res: CaseAssignment[]) => {
-    console.log(res);
+    this.loadCaseAssignments();
+ }
 
-    // 🔹 Ordenar de más reciente a más antiguo
+  loadCaseAssignments(): void {
+  this.crudService.getCaseAssignments().subscribe((res: CaseAssignment[]) => {
+    // Ordenar de más reciente a más antiguo
     this.caseAssignments = res.sort((a, b) => {
       const fechaA = new Date(a.assignedAt!).getTime();
       const fechaB = new Date(b.assignedAt!).getTime();
-      return fechaB - fechaA; // primero la más reciente
-    });
+      return fechaB - fechaA;
+    }).slice(0, 10);
 
-    // 🔹 Mostrar solo los últimos 10
-    this.caseAssignments = this.caseAssignments.slice(0, 10);
-
-    // 🔹 Calcular cuántos registros hay por cada juzgado
+    // Calcular cuántos registros hay por cada juzgado
     this.countsByCourt = res.reduce((acc, item) => {
       const court = item.court;
       acc[court] = (acc[court] || 0) + 1;

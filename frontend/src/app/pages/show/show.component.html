@@ -118,69 +118,17 @@
       <button class="btn btn-success" (click)="limpiarTabla()">Limpiar</button>
     </div>
 
-    <!--<app-generic-form [courtValue]="juzgadoAsignado"></app-generic-form>-->
-
-    <!--
-     Formulario 
-  <div class="card mt-5">
-    <div class="card-header bg-dark text-white text-center" >
-       Registro de Audiencias
-    </div>
-    <div class="card-body">
-      <form (ngSubmit)="enviarFormulario()" #form="ngForm">
-
-       
-        <div class="mb-3">
-          <label for="court" class="form-label">Juzgado</label>
-          <input type="text" id="court" class="form-control" [ngClass]="{'bg-warning fw-bold': court}" [(ngModel)]="court" name="court" readonly>
-        </div>
-
-        
-        <div class="mb-3">
-          <label for="caseNumber" class="form-label">Radicado</label>
-          <input type="text" id="caseNumber" class="form-control" [(ngModel)]="caseNumber" name="caseNumber">
-        </div>
-
-        
-        <div class="mb-3">
-          <label for="numberPeopleCustody" class="form-label">Número de detenidos</label>
-          <input type="text" id="numberPeopleCustody" class="form-control" [(ngModel)]="numberPeopleCustody" name="numberPeopleCustody">
-        </div>
-
-        
-        <div class="mb-3">
-          <label for="crimeCategory" class="form-label">Tipo de delito</label>
-          <input type="text" id="crimeCategory" class="form-control" [(ngModel)]="crimeCategory" name="crimeCategory">
-        </div>
-
-       
-        <div class="mb-3">
-          <label for="remarksField" class="form-label">Observaciones</label>
-          <textarea id="remarksField" class="form-control" [(ngModel)]="remarksField" name="remarksField" rows="3"></textarea>
-        </div>
-
-        
-        <div class="d-flex justify-content-center gap-3">
-          <button type="submit" class="btn btn-primary">Guardar</button>
-          <button type="button" class="btn btn-outline-secondary" (click)="limpiarFormulario()">Limpiar</button>
-        </div>
-
-      </form>
-    </div>
-  </div>
-   -->
-
   
   <!-- Formulario -->
 <div class="card mt-5 shadow-sm border-0">
-  <div class="card-header bg-dark text-white text-center">
+  <div class="card-header bg-dark text-white text-center fw-bold">
     Registro de Audiencias
   </div>
   <div class="card-body">
     <form (ngSubmit)="enviarFormulario()" #form="ngForm">
 
       <div class="row">
-        <!-- 🏛️ Juzgado -->
+        <!-- Juzgado -->
         <div class="col-md-6 mb-3">
           <label for="court" class="form-label">Juzgado <span class="text-danger">*</span></label>
           <input
@@ -199,59 +147,7 @@
           </div>
         </div>
 
-        <!--
-
-        <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="court" class="form-label">Juzgado</label>
-          <input 
-            type="text" 
-            id="court" 
-            class="form-control" 
-            [ngClass]="{'bg-warning fw-bold': court}" 
-            [(ngModel)]="court" 
-            name="court" 
-            readonly>
-        </div>
-
-
-        <div class="col-md-6 mb-3">
-          <label for="caseNumber" class="form-label">Radicado</label>
-          <input 
-            type="text" 
-            id="caseNumber" 
-            class="form-control" 
-            [(ngModel)]="caseNumber" 
-            name="caseNumber">
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="numberPeopleCustody" class="form-label">Número de detenidos</label>
-          <input 
-            type="text" 
-            id="numberPeopleCustody" 
-            class="form-control" 
-            [(ngModel)]="numberPeopleCustody" 
-            name="numberPeopleCustody">
-        </div>
-
-        <div class="col-md-6 mb-3">
-          <label for="crimeCategory" class="form-label">Tipo de delito</label>
-          <input 
-            type="text" 
-            id="crimeCategory" 
-            class="form-control" 
-            [(ngModel)]="crimeCategory" 
-            name="crimeCategory">
-        </div>
-      </div>-->
-
-
-
-      <!-- 📄 Radicado -->
+      <!-- Radicado -->
         <div class="col-md-6 mb-3">
           <label for="caseNumber" class="form-label">Radicado <span class="text-danger">*</span></label>
           <input
@@ -271,7 +167,7 @@
       </div>
 
       <div class="row">
-        <!-- 👮 Número de detenidos -->
+        <!-- Número de detenidos -->
         <div class="col-md-6 mb-3">
           <label for="numberPeopleCustody" class="form-label">Número de detenidos <span class="text-danger">*</span></label>
           <input
@@ -289,7 +185,7 @@
           </div>
         </div>
 
-        <!-- ⚖️ Tipo de delito -->
+        <!-- Tipo de delito -->
         <div class="col-md-6 mb-3">
           <label for="crimeCategory" class="form-label">Tipo de delito <span class="text-danger">*</span></label>
           <input
@@ -308,8 +204,7 @@
         </div>
       </div>
       
-
-      
+      <!-- Observaciones -->
       <div class="mb-3">
         <label for="remarksField" class="form-label">Observaciones</label>
         <textarea 
@@ -334,15 +229,13 @@
 </div>
 
 
-
-
     <!-- Tabla con registros del formulario -->
-  <div class="card mt-5 m-5 shadow-sm border-0" style="width: 1200px;">
-    <div class="card-header bg-primary text-white text-center">
+  <div class="card mt-5 shadow-sm border-0 w-100">
+    <div class="card-header bg-primary text-white text-center fw-bold">
       Registros Guardados
     </div>
     <div class="card-body table-responsive">
-      <table class="table table-bordered table-striped align-middle">
+      <table class="table table-bordered table-striped align-middle shadow-sm">
         <thead class="table-dark">
           <tr>
             <th scope="col" class="text-center" style="display: none;">Id</th>

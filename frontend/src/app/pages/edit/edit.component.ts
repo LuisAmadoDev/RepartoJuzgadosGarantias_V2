@@ -34,18 +34,23 @@ export class EditComponent implements OnInit {
     })
   }
 
+  
   updateForm(): void {
-  this.crudService.updateCaseAssignment(this.id, this.model).subscribe({
-  next: (res) => {
-    this.alertifyService.success('¡Registro actualizado!');
-    this.router.navigateByUrl('/show');
-  },
-  error: (error) => {
-    console.error('Error updating record:', error);
-    this.alertifyService.error('Error al actualizar el registro. Por favor, inténtelo de nuevo.');
-  }
-});
+    if (!this.model.court || !this.model.caseNumber || !this.model.numberPeopleCustody || !this.model.crimeCategory) {
+      this.alertifyService.error('Por favor complete todos los campos obligatorios.');
+      return;
+    }
 
-}
+    this.crudService.updateCaseAssignment(this.id, this.model).subscribe({
+      next: () => {
+        this.alertifyService.success('¡Registro actualizado!');
+        this.router.navigateByUrl('/show');
+      },
+      error: (error) => {
+        console.error('Error al actualizar:', error);
+        this.alertifyService.error('Error al actualizar el registro.');
+      }
+    });
+  }
 
 }

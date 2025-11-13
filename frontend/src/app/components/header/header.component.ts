@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   subtitulo: string = 'Juzgados Penales con Función de Control de Garantías';
 
   showLogoutButton: boolean = false;
+  isAdminView: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -33,9 +34,11 @@ export class HeaderComponent implements OnInit {
   }
 
   private updateLogoutVisibility(url: string) {
-    // Ajusta la condición aquí a la ruta exacta que quieras (/show)
-    // Uso startsWith para que funcione con /show y /show/anything
+    // Mostrar botón de logout solo en rutas específicas
     this.showLogoutButton = url.startsWith('/show') || url.startsWith('/users/show-user');
+
+    // Si estás en vista admin (ajusta el path según tu ruta real)
+    this.isAdminView = url.startsWith('/users/show-user');
   }
 
   logout() {
