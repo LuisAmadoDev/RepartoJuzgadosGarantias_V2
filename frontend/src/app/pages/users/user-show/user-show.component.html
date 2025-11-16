@@ -3,7 +3,21 @@
   <app-header></app-header>
 
   <div class="container mt-4 mb-5">
-    <!--<h3 class="text-center mb-4">Gestión de Usuarios</h3>-->
+
+    <div class="d-flex justify-content-between mb-3">
+
+      <!-- Botón Exportar -->
+      <button class="btn btn-success btn-lift" (click)="exportToExcel()">
+        📤 Exportar Audiencias
+      </button>
+
+      <!-- Botón Navegar -->
+      <button class="btn btn-primary btn-lift" [routerLink]="['/show']">
+        🔗 Ir a Pagina Principal
+      </button>
+
+    </div>
+
 
     <app-user-form [userToEdit]="selectedUser" (saveUser)="createUser($event)">
     </app-user-form>

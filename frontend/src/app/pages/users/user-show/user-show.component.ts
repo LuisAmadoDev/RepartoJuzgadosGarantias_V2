@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { AlertifyService } from '../../../services/alertify.service';
 import { User } from '../../../models/user.model';
+import { CrudService } from '../../../services/crud.service';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-user-show',
@@ -14,6 +17,7 @@ export class UserShowComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private crudService: CrudService,
     private alertify: AlertifyService
   ) {}
 
@@ -53,5 +57,26 @@ export class UserShowComponent implements OnInit {
       this.getUsers();
     });
   }
+
+  exportToExcel() {
+  this.crudService.getCaseAssignments().subscribe((data) => {
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+
+    const workbook = {
+      Sheets: { 'Audiencias': worksheet },
+      SheetNames: ['Audiencias']
+    };
+
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+    const file = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+    });
+
+    saveAs(file, 'audiencias.xlsx');
+  });
+}
+
 
 }

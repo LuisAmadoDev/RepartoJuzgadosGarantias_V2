@@ -23,17 +23,7 @@ const routes: Routes = [
   { path: 'update/:id', component: EditComponent, canActivate: [authGuard] },
   { path: 'generic-table', component: GenericTableComponent, canActivate: [authGuard] },
 
-   // Páginas protegidas de usuarios
-   /*
-  {
-    path: 'users',
-    canActivate: [authGuard],
-    children: [
-      { path: 'show-user', component: UserShowComponent },
-      { path: 'edit/:id', component: UserEditComponent },
-    ],
-  },*/
-  
+  // Rutas de usuarios
   { path: 'users/show-user', component: UserShowComponent, canActivate: [authGuard] },
   { path: 'users/edit/:id', component: UserEditComponent, canActivate: [authGuard] },
 
